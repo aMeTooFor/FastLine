@@ -11,6 +11,7 @@ https://blog.csdn.net/e271828/article/details/155442585?spm=1001.2014.3001.5501
 https://github.com/aMeTooFor/FourColour
 
 https://github.com/aMeTooFor/inAccessNeMo_ubuntu_Lazarus
+
 1.本软件为小软件，不想为项目管理花过多时间，例如要新增一个项目，又删除或修改一个项目等。
 为此，本小软件只有两个默认的项目，一个为演示项目，一个用户当前正在使用的项目，不能增也不能减。
 用户可以清空当前的用户项目，从而使用自已自定义的项目。先输入质点数等等。
