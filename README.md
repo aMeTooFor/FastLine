@@ -5,8 +5,11 @@
 作者：FastLine/快来/快线
 作者：反枝苋/茼蒿/开源盛世/阴汁成世
 https://github.com/aMeTooFor/FastLine
+
 https://blog.csdn.net/e271828/article/details/155442585?spm=1001.2014.3001.5501
+
 https://github.com/aMeTooFor/FourColour
+
 https://github.com/aMeTooFor/inAccessNeMo_ubuntu_Lazarus
 1.本软件为小软件，不想为项目管理花过多时间，例如要新增一个项目，又删除或修改一个项目等。
 为此，本小软件只有两个默认的项目，一个为演示项目，一个用户当前正在使用的项目，不能增也不能减。
@@ -68,8 +71,11 @@ https://github.com/aMeTooFor/inAccessNeMo_ubuntu_Lazarus
 
 作者的个人网站：
 https://blog.csdn.net/e271828/article/details/155442585?spm=1001.2014.3001.5501
+
 https://github.com/aMeTooFor/FourColour
+
 https://github.com/aMeTooFor/inAccessNeMo_ubuntu_Lazarus
+
 https://github.com/aMeTooFor/FastLine
 上面有作者个人开发的所有软件，全免费下载。免费但不开源，源代码要收费。
 上面有作者个人开发的中医五运六气和子午流注软件，有PC电脑版，安卓版，ASP网页版等。
