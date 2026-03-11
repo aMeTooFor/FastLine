@@ -1,0 +1,394 @@
+object frmPoints: TfrmPoints
+  Left = 288
+  Height = 528
+  Top = 254
+  Width = 855
+  Caption = 'frmPoints'
+  ClientHeight = 528
+  ClientWidth = 855
+  Position = poDesktopCenter
+  LCLVersion = '4.4.0.0'
+  OnClose = FormClose
+  OnCloseQuery = FormCloseQuery
+  OnShow = FormShow
+  object DBGrid1: TDBGrid
+    Left = 8
+    Height = 456
+    Top = 24
+    Width = 838
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    AutoEdit = False
+    Color = clWindow
+    Columns = <    
+      item
+        Title.Caption = 'id ↑'
+        Width = 50
+        FieldName = 'id'
+      end    
+      item
+        Title.Caption = 'pcode'
+        Width = 50
+        FieldName = 'pcode'
+      end    
+      item
+        Title.Caption = 'pname'
+        Width = 50
+        FieldName = 'pname'
+      end    
+      item
+        Title.Caption = 'x坐标(从左到右)'
+        Width = 120
+        FieldName = 'px'
+      end    
+      item
+        Title.Caption = 'y坐标(从上到下)'
+        Width = 120
+        FieldName = 'py'
+      end    
+      item
+        Title.Caption = 'dprid'
+        Visible = False
+        FieldName = 'dprid'
+      end    
+      item
+        ButtonStyle = cbsCheckboxColumn
+        Title.Caption = '选择起始地'
+        Width = 80
+        FieldName = 'isbegin'
+      end    
+      item
+        ButtonStyle = cbsCheckboxColumn
+        Title.Caption = '选择目的地'
+        Width = 80
+        FieldName = 'isend'
+      end    
+      item
+        Title.Caption = '点的权重值'
+        Width = 80
+        FieldName = 'weightPoint'
+      end    
+      item
+        Title.Caption = '备注'
+        Width = 200
+        FieldName = 'memo'
+      end    
+      item
+        Title.Caption = 'status'
+        Visible = False
+        FieldName = 'status'
+      end>
+    DataSource = DataSource1
+    Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgAlwaysShowEditor, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgDisplayMemoText]
+    TabOrder = 0
+    OnTitleClick = DBGrid1TitleClick
+  end
+  object Button1: TButton
+    Left = 461
+    Height = 25
+    Top = 488
+    Width = 75
+    Anchors = [akRight, akBottom]
+    Caption = '退出'
+    TabOrder = 1
+    OnClick = Button1Click
+  end
+  object SpeedButton1: TSpeedButton
+    Left = 264
+    Height = 22
+    Top = 491
+    Width = 131
+    Caption = '查找定位到此'
+    OnClick = SpeedButton1Click
+  end
+  object Edit1: TEdit
+    Left = 12
+    Height = 40
+    Top = 483
+    Width = 118
+    TabOrder = 2
+    Text = 'P0'
+  end
+  object ComboBox1: TComboBox
+    Left = 144
+    Height = 40
+    Top = 483
+    Width = 112
+    ItemHeight = 0
+    ItemIndex = 1
+    Items.Strings = (
+      'id'
+      'pcode'
+      'pname'
+      'px'
+      'py'
+      'memo'
+    )
+    TabOrder = 3
+    Text = 'pcode'
+  end
+  object Label1: TLabel
+    Left = 12
+    Height = 18
+    Top = 4
+    Width = 44
+    Caption = 'Label1'
+  end
+  object Label2: TLabel
+    Left = 184
+    Height = 18
+    Top = 3
+    Width = 44
+    Caption = 'Label2'
+    Visible = False
+  end
+  object DataSource1: TDataSource
+    DataSet = SQLQuery1
+    OnDataChange = DataSource1DataChange
+    OnUpdateData = DataSource1UpdateData
+    Left = 229
+    Top = 91
+  end
+  object SQLQuery1: TSQLQuery
+    PacketRecords = -1
+    IndexName = 'DEFAULT_ORDER'
+    MaxIndexesCount = 4
+    FieldDefs = <    
+      item
+        Name = 'id'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'dprid'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'pcode'
+        DataType = ftMemo
+        Precision = -1
+      end    
+      item
+        Name = 'pname'
+        DataType = ftMemo
+        Precision = -1
+      end    
+      item
+        Name = 'memo'
+        DataType = ftMemo
+        Precision = -1
+      end    
+      item
+        Name = 'px'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'py'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'isbegin'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'isend'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'status'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'C'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'FC'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'CCC'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'C1248C1111'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'ParentP'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'F1'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'F2'
+        DataType = ftInteger
+        Precision = -1
+      end>
+    AutoCalcFields = False
+    AfterOpen = SQLQuery1AfterOpen
+    AfterPost = SQLQuery1AfterPost
+    Database = SQLConnector1
+    Transaction = SQLTransaction1
+    SQL.Strings = (
+      'select *  from points'
+    )
+    Options = [sqoKeepOpenOnCommit, sqoAutoApplyUpdates, sqoAutoCommit, sqoCancelUpdatesOnRefresh, sqoRefreshUsingSelect]
+    Params = <>
+    Macros = <>
+    UpdateMode = upWhereAll
+    Left = 352
+    Top = 104
+    object SQLQuery1px: TLongintField
+      FieldKind = fkData
+      FieldName = 'px'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLQuery1py: TLongintField
+      FieldKind = fkData
+      FieldName = 'py'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLQuery1id: TAutoIncField
+      FieldKind = fkData
+      FieldName = 'id'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLQuery1dprid: TLongintField
+      FieldKind = fkData
+      FieldName = 'dprid'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Visible = False
+    end
+    object SQLQuery1pcode: TMemoField
+      DisplayWidth = 20
+      FieldKind = fkData
+      FieldName = 'pcode'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      BlobType = ftMemo
+      Transliterate = False
+    end
+    object SQLQuery1pname: TMemoField
+      DisplayWidth = 20
+      FieldKind = fkData
+      FieldName = 'pname'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      BlobType = ftMemo
+      Transliterate = False
+    end
+    object SQLQuery1memo: TMemoField
+      DisplayWidth = 100
+      FieldKind = fkData
+      FieldName = 'memo'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      BlobType = ftMemo
+      Transliterate = False
+    end
+    object SQLQuery1isbegin: TLongintField
+      FieldKind = fkData
+      FieldName = 'isbegin'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      OnChange = SQLQuery1isbeginChange
+    end
+    object SQLQuery1isend: TLongintField
+      FieldKind = fkData
+      FieldName = 'isend'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      OnChange = SQLQuery1isendChange
+    end
+    object SQLQuery1status: TLongintField
+      FieldKind = fkData
+      FieldName = 'status'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Visible = False
+    end
+    object SQLQuery1weightPoint: TFloatField
+      DisplayWidth = 20
+      FieldKind = fkData
+      FieldName = 'weightPoint'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+  end
+  object SQLTransaction1: TSQLTransaction
+    Active = True
+    Database = SQLConnector1
+    Left = 424
+    Top = 89
+  end
+  object SQLConnector1: TSQLConnector
+    Connected = True
+    LoginPrompt = False
+    DatabaseName = 'FastLine.sqlite3'
+    KeepConnection = False
+    Transaction = SQLTransaction1
+    ConnectorType = 'SQLite3'
+    Left = 535
+    Top = 121
+  end
+  object SQLtemp: TSQLQuery
+    FieldDefs = <>
+    Database = SQLConnector1
+    Transaction = SQLTransaction1
+    Params = <>
+    Macros = <>
+    Left = 304
+    Top = 200
+  end
+end

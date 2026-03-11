@@ -1,0 +1,871 @@
+object Main: TMain
+  Left = 220
+  Height = 679
+  Top = 143
+  Width = 874
+  Caption = 'Main'
+  ClientHeight = 679
+  ClientWidth = 874
+  Position = poDefaultSizeOnly
+  LCLVersion = '4.4.0.0'
+  OnActivate = FormActivate
+  OnClose = FormClose
+  OnCloseQuery = FormCloseQuery
+  OnCreate = FormCreate
+  OnShow = FormShow
+  object ProgressBar1: TProgressBar
+    Left = 144
+    Height = 20
+    Top = 237
+    Width = 456
+    Anchors = [akTop, akLeft, akRight]
+    TabOrder = 0
+    Visible = False
+  end
+  object Memo_SaveToTxT: TMemo
+    Left = 272
+    Height = 90
+    Top = 304
+    Width = 150
+    Lines.Strings = (
+      '最短路径算法小软件V6.0'
+      '2018年8月 '
+      '作者：无人知/无人不知/街知巷闻/路人知/路人皆知'
+      '作者：FastLine/快来/快线'
+      '作者：反枝苋/茼蒿/开源盛世/阴汁成世'
+      ''
+      'https://blog.csdn.net/e271828/article/details/155442585?spm=1001.2014.3001.5501'
+      'https://github.com/aMeTooFor/FourColour'
+      'https://github.com/aMeTooFor/inAccessNeMo_ubuntu_Lazarus'
+      '1.本软件为小软件，不想为项目管理花过多时间，例如要新增一个项目，又删除或修改一个项目等。'
+      '为此，本小软件只有两个默认的项目，一个为演示项目，一个用户当前正在使用的项目，不能增也不能减。'
+      '用户可以清空当前的用户项目，从而使用自已自定义的项目。先输入质点数等等。'
+      '如果你要多个项目，可以COPY多个本软件所在文件夹使用。'
+      '2.初始化粗略质点坐标时，边长不作校验，例如，三角形两边长之和本应大于第三边，但是输入时三角形两边长之和小于第三边，将不作检验，所以请手工确保原始数据的正确性。'
+      '3.质点坐标是屏幕像素坐标，left,top,纵坐标向下不是向上，与数学上的纵坐标方向相反。'
+      '4.坐标为屏幕像素坐标，所以只能整数，边长为两位小数，如果四舍五入导致的出错不作处理。'
+      '5.注意，用户要先点击“注意:先清空用户项目!!!”才可以自定义自已要用到的顶点数的改变。'
+      ''
+      '本次升级到6.0主要修改如下：'
+      '1。修正了鼠标拖动质点超出屏幕范围时，保存坐标值的错误。'
+      ''
+      ''
+      '本次升级到5.0主要修改如下：'
+      '1。边线条改成灰色，当鼠标移到边线条时，高亮显示边与边长数字，这对于边长数字重叠时有用。'
+      '2。点坐标拖动时可以超出屏幕范围自动产生滚动条，但点坐标不可以为负数。'
+      '3。增加了SPFA算法，来处理边长为 0 或者负数的情况，但SPFA当有负环时无解。'
+      '4。增加了处理负环的两个新算法，这两个算法皆为作者自创的新算法，一个点与边都不可以重复，另一个点可以重复，边不可以重复。'
+      '5。边长为负数时最好有方向单向，一般不允许双向或无向。或者每条双向无向的负数边，可以每次取单向，如此组合出所有情况，来求最短路径，再在所有最短路径中再取其最小值。这个组合的算法暂不处理，由用户手工处理。'
+      ''
+      '升级到4.0时主要修改如下：'
+      '1。更正了算法上的一个BUG。'
+      '2。边长由只可以为整数升级为可以为两位小数。'
+      '3。增加了可以保存运算结果，下次不用再运算的功能。'
+      '4。增加了可以列举所有最短路径的功能，不止一条最短路径时有用。'
+      '5。增加了边向量功能，边向量方向可以双向或无向，或序号从小指向大，或序号从大指向小，三种选择。'
+      '6。改正了设置起点和终点的小BUG，增加了进度条显示。'
+      '7。增加了可以鼠标拖动质点，所相关联的边相应变动的功能。'
+      ''
+      '作者的个人网站：'
+      'https://blog.csdn.net/e271828/article/details/155442585?spm=1001.2014.3001.5501'
+      'https://github.com/aMeTooFor/FourColour'
+      'https://github.com/aMeTooFor/inAccessNeMo_ubuntu_Lazarus'
+      '上面有作者个人开发的所有软件，全免费下载。免费但不开源，源代码要收费。'
+      '上面有作者个人开发的中医五运六气和子午流注软件，有PC电脑版，安卓版，ASP网页版等。'
+      '还有作者开发的“行星财务”安卓软件，是一款在安卓设备上运行的真正意义上的财务软件，不是记录个人收支的个人记账，在安卓手机上可以运行，掌上财务软件。'
+      '还有作者开发的“TSP算法小软件”，或叫旅行商问题，可在我的个人网站或华军软件园下载或百度。'
+      '还有作者开发的表达式求值的计算器，可以层层括号等等。。。'
+      ''
+      '我的软件全免费，无广告，无须权限，无须上网，无时间和任何功能限制，纯绿色不污染系统，不体积庞大。。。'
+      ''
+      ''
+      ''
+      '百度百科：最短路径'
+      ''
+      '用于计算一个节点到其他所有节点的最短路径。主要特点是以起始点为中心向外层层扩展，直到扩展到终点为止。Dijkstra算法能得出最短路径的最优解，但由于它遍历计算的节点很多，所以效率低。'
+      '中文名 最短路径'
+      '特点 以起始点为中心向外层层扩展'
+      '性质 一个经典算法问题'
+      '解决方法 Dijkstra算法A*算法'
+      ''
+      '概述'
+      ''
+      '最短路径问题是图论研究中的一个经典算法问题， 旨在寻找图（由结点和路径组成的）中两结点之间的最短路径。 算法具体的形式包括：'
+      '确定起点的最短路径问题 - 即已知起始结点，求最短路径的问题。'
+      '确定终点的最短路径问题 - 与确定起点的问题相反，该问题是已知终结结点，求最短路径的问题。在无向图中该问题与确定起点的问题完全等同，在有向图中该问题等同于把所有路径方向反转的确定起点的问题。'
+      '确定起点终点的最短路径问题 - 即已知起点和终点，求两结点之间的最短路径。'
+      '全局最短路径问题 - 求图中所有的最短路径。'
+      ''
+      ''
+      ''
+      ''
+      ''
+      ''
+      ''
+      ''
+      ''
+      ''
+      ''
+      ''
+      ''
+      ''
+      ''
+      ''
+      ''
+      ''
+      ''
+    )
+    ScrollBars = ssBoth
+    TabOrder = 1
+    Visible = False
+  end
+  object Memo3: TMemo
+    Left = 504
+    Height = 90
+    Top = 352
+    Width = 150
+    Lines.Strings = (
+      'Memo3'
+    )
+    TabOrder = 2
+    Visible = False
+  end
+  object Splitter1: TSplitter
+    Left = 690
+    Height = 679
+    Top = 0
+    Width = 5
+    Align = alRight
+    ResizeAnchor = akRight
+  end
+  object ScrollBox1: TScrollBox
+    Left = 0
+    Height = 679
+    Top = 0
+    Width = 690
+    HorzScrollBar.Page = 323
+    VertScrollBar.Page = 90
+    Align = alClient
+    ClientHeight = 677
+    ClientWidth = 688
+    Color = clDefault
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 4
+    object Image1: TImage
+      Left = 0
+      Height = 677
+      Top = 0
+      Width = 688
+      Align = alClient
+      AutoSize = True
+      ParentShowHint = False
+      Stretch = True
+      OnMouseMove = Image1MouseMove
+      OnMouseUp = Image1MouseUp
+    end
+    object Shape1: TShape
+      Left = 293
+      Height = 30
+      Top = 31
+      Width = 30
+      Brush.Color = clRed
+      Shape = stCircle
+      Visible = False
+      OnChangeBounds = Shape1ChangeBounds
+      OnMouseDown = Shape1MouseDown
+      OnMouseMove = Shape1MouseMove
+      OnMouseUp = Shape1MouseUp
+      OnPaint = Shape1Paint
+    end
+  end
+  object Panel_right: TPanel
+    Left = 695
+    Height = 679
+    Top = 0
+    Width = 179
+    Align = alRight
+    ClientHeight = 679
+    ClientWidth = 179
+    TabOrder = 5
+    object btn_info: TButton
+      Left = 9
+      Height = 25
+      Hint = '只在作者自创的燃线法添加权重功能，别的算法暂没空去做了，以后再理   '
+      Top = 4
+      Width = 71
+      Caption = '说明'
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 0
+      OnClick = btn_infoClick
+    end
+    object btn_about: TButton
+      Left = 86
+      Height = 25
+      Hint = '只在作者自创的燃线法添加权重功能，别的算法暂没空去做了，以后再理   '
+      Top = 4
+      Width = 80
+      Caption = '关于'
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 1
+      OnClick = Button2Click
+    end
+    object Label4: TLabel
+      Left = 9
+      Height = 18
+      Top = 179
+      Width = 96
+      Caption = '初始化质点数据：'
+      Font.Height = -12
+      Font.Name = 'Sans'
+      ParentFont = False
+    end
+    object RadioGroup3: TRadioGroup
+      Left = 0
+      Height = 104
+      Top = 199
+      Width = 176
+      AutoFill = True
+      Caption = '屏幕像素坐标'
+      ChildSizing.LeftRightSpacing = 6
+      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+      ChildSizing.EnlargeVertical = crsHomogenousChildResize
+      ChildSizing.ShrinkHorizontal = crsScaleChilds
+      ChildSizing.ShrinkVertical = crsScaleChilds
+      ChildSizing.Layout = cclLeftToRightThenTopToBottom
+      ChildSizing.ControlsPerLine = 1
+      ClientHeight = 85
+      ClientWidth = 174
+      Font.Height = -12
+      Font.Name = 'Sans'
+      ParentFont = False
+      TabOrder = 2
+      object RadioBtn_calc: TRadioButton
+        Left = 6
+        Height = 17
+        Top = 0
+        Width = 162
+        Caption = '精确坐标：自动计算边长'
+        Checked = True
+        TabOrder = 0
+        TabStop = True
+      end
+      object RadioBtn_input: TRadioButton
+        Left = 6
+        Height = 18
+        Top = 17
+        Width = 162
+        Caption = '粗略坐标：手工输入边长'
+        TabOrder = 1
+      end
+      object pointsXYpos: TButton
+        Left = 6
+        Height = 24
+        Top = 35
+        Width = 162
+        AutoSize = True
+        Caption = '质点总数量重新输入'
+        Font.Color = clRed
+        Font.Height = -11
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 2
+        OnClick = pointsXYposClick
+      end
+      object addOnePoint: TButton
+        Left = 6
+        Height = 26
+        Top = 59
+        Width = 162
+        AutoSize = True
+        Caption = '添加一点(若删除某点用右键)'
+        Font.Color = clFuchsia
+        Font.Height = -12
+        Font.Name = 'Sans'
+        ParentFont = False
+        TabOrder = 3
+        OnClick = addOnePointClick
+      end
+    end
+    object Btn_start: TButton
+      Left = 120
+      Height = 25
+      Top = 332
+      Width = 75
+      Caption = '选择起点'
+      TabOrder = 4
+      Visible = False
+    end
+    object Btn_end: TButton
+      Left = 120
+      Height = 25
+      Top = 304
+      Width = 75
+      Caption = '选择目标'
+      TabOrder = 5
+      Visible = False
+    end
+    object btn_run: TButton
+      Left = 12
+      Height = 25
+      Hint = '只在作者自创的燃线法添加权重功能，别的算法暂没空去做了，以后再理   '
+      Top = 579
+      Width = 152
+      Caption = '求最快路径'
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 6
+      OnClick = btn_runClick
+    end
+    object PageControl1: TPageControl
+      Left = 9
+      Height = 183
+      Top = 361
+      Width = 162
+      ActivePage = TabSheet1
+      Font.Height = -12
+      Font.Name = 'Sans'
+      ParentFont = False
+      TabIndex = 0
+      TabOrder = 7
+      object TabSheet1: TTabSheet
+        Caption = '算法选择'
+        ClientHeight = 151
+        ClientWidth = 152
+        object RadioBtn_spfa: TRadioButton
+          Left = 0
+          Height = 23
+          Hint = '只在作者自创的燃线法添加权重功能，别的算法暂没空去做了，以后再理   '
+          Top = 67
+          Width = 54
+          Caption = 'SPFA'
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 1
+        end
+        object Btn_about_spfa: TButton
+          Left = 71
+          Height = 25
+          Hint = '只在作者自创的燃线法添加权重功能，别的算法暂没空去做了，以后再理   '
+          Top = 65
+          Width = 75
+          Caption = 'SPFA说明'
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 3
+          OnClick = Btn_about_spfaClick
+        end
+        object RadioBtn_way2: TRadioButton
+          Left = 0
+          Height = 23
+          Hint = '只在作者自创的燃线法添加权重功能，别的算法暂没空去做了，以后再理   '
+          Top = 97
+          Width = 62
+          Caption = '算法二'
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 0
+        end
+        object Btn_about_way2: TButton
+          Left = 71
+          Height = 25
+          Hint = '只在作者自创的燃线法添加权重功能，别的算法暂没空去做了，以后再理   '
+          Top = 93
+          Width = 75
+          Caption = '算法二说明'
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 4
+          OnClick = Btn_about_way2Click
+        end
+        object RadioBtn_way3: TRadioButton
+          Left = 0
+          Height = 23
+          Hint = '只在作者自创的燃线法添加权重功能，别的算法暂没空去做了，以后再理   '
+          Top = 122
+          Width = 62
+          Caption = '算法三'
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 5
+        end
+        object Btn_about_way3: TButton
+          Left = 72
+          Height = 25
+          Hint = '只在作者自创的燃线法添加权重功能，别的算法暂没空去做了，以后再理   '
+          Top = 122
+          Width = 75
+          Caption = '算法三说明'
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 6
+          OnClick = Btn_about_way3Click
+        end
+        object Btn_about_way111: TButton
+          Left = 93
+          Height = 25
+          Hint = '燃线法权重算法说明'#10'这其实是作者自创的燃线法，'#10'燃线法，就是设想，节点与线段是导火线是燃烧的线，且匀速直线运动，'#10'又或者设想是金属铜导线，通电后，以光速运动，最先到达的就是最快路径FastLine'#10#10'原先的版本是没有权重的，点与边的权重是现在才添加上去的，'#10'由于权重可能有多种组合解释，现在以下面为解释：'#10'点的权重就是，经过此点时路径增加的值，'#10'边的权重，就是边长再相乘的乘数倍数。'#10'只在作者自创的燃线法添加权重功能，'#10'别的算法暂没空去做了，以后再理'#10#10'因为作者自已闭门造车想出燃线法，再去网上寻找最短路径算法，发觉与已存在的A-Star算法十分相似，实际上又难以明确，于是作出程序来实用，'#10'理论上归属哪个算法，不太明确。'#10'关键是实际上能找到最短的最快的路径，实用就行了。'
+          Top = 10
+          Width = 50
+          Caption = 'A-Star2'
+          Font.Height = -11
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 7
+          OnClick = Btn_about_way111Click
+        end
+        object RadioBtn_way1: TRadioButton
+          Left = 0
+          Height = 23
+          Hint = 'A-Star算法说明2'#10'这其实是作者自创的燃线法，因为作者自已闭门造车想出燃线法，再去网上寻找最短路径算法，'#10'发觉与已存在的A-Star算法十分相似，实际上又难以明确，于是作出程序来实用，'#10'理论上归属哪个算法，不太明确。'#10'关键是实际上能找到最短的最快的路径，实用就行了。'#10'燃线法，就是设想，节点与线段是导火线是燃烧的线，且匀速直线运动，'#10'又或者设想是金属铜导线，通电后，以光速运动，'#10'最先到达的就是最快路径FastLine'
+          Top = 38
+          Width = 60
+          Caption = 'A-Star'
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 2
+        end
+        object Btn_about_way1: TButton
+          Left = 72
+          Height = 25
+          Hint = 'A-Star算法说明2'#10'这其实是作者自创的燃线法，因为作者自已闭门造车想出燃线法，再去网上寻找最短路径算法，'#10'发觉与已存在的A-Star算法十分相似，实际上又难以明确，于是作出程序来实用，'#10'理论上归属哪个算法，不太明确。'#10'关键是实际上能找到最短的最快的路径，实用就行了。'#10'燃线法，就是设想，节点与线段是导火线是燃烧的线，且匀速直线运动，'#10'又或者设想是金属铜导线，通电后，以光速运动，'#10'最先到达的就是最快路径FastLine'
+          Top = 38
+          Width = 73
+          Caption = 'A-Star说明'
+          Font.Height = -12
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 8
+          OnClick = Btn_about_way1Click
+        end
+        object RadioBtn_wayWeightLine: TRadioButton
+          Left = 2
+          Height = 23
+          Hint = '燃线法权重算法说明'#10'这其实是作者自创的燃线法，'#10'燃线法，就是设想，节点与线段是导火线是燃烧的线，且匀速直线运动，'#10'又或者设想是金属铜导线，通电后，以光速运动，最先到达的就是最快路径FastLine'#10#10'原先的版本是没有权重的，点与边的权重是现在才添加上去的，'#10'由于权重可能有多种组合解释，现在以下面为解释：'#10'点的权重就是，经过此点时路径增加的值，'#10'边的权重，就是边长再相乘的乘数倍数。'#10'只在作者自创的燃线法添加权重功能，'#10'别的算法暂没空去做了，以后再理'#10#10'因为作者自已闭门造车想出燃线法，再去网上寻找最短路径算法，发觉与已存在的A-Star算法十分相似，实际上又难以明确，于是作出程序来实用，'#10'理论上归属哪个算法，不太明确。'#10'关键是实际上能找到最短的最快的路径，实用就行了。'
+          Top = 10
+          Width = 86
+          Caption = '燃线法权重'
+          Checked = True
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 9
+          TabStop = True
+        end
+      end
+      object TabSheet2: TTabSheet
+        Caption = '其他'
+        ClientHeight = 151
+        ClientWidth = 152
+        object GroupBox1: TGroupBox
+          Left = 0
+          Height = 151
+          Top = 0
+          Width = 152
+          Align = alClient
+          Caption = '算法选择（暂没开发）'
+          ClientHeight = 132
+          ClientWidth = 150
+          TabOrder = 0
+          object RadioButton3: TRadioButton
+            Left = 13
+            Height = 27
+            Top = 7
+            Width = 107
+            Caption = 'Dijkstra算法'
+            Checked = True
+            Enabled = False
+            TabOrder = 0
+            TabStop = True
+          end
+          object RadioButton4: TRadioButton
+            Left = 13
+            Height = 27
+            Top = 30
+            Width = 140
+            Caption = 'Bellmanford算法'
+            Enabled = False
+            TabOrder = 1
+          end
+          object RadioButton5: TRadioButton
+            Left = 13
+            Height = 27
+            Top = 53
+            Width = 93
+            Caption = 'Floyd算法'
+            Enabled = False
+            TabOrder = 2
+          end
+          object RadioButton6: TRadioButton
+            Left = 13
+            Height = 27
+            Top = 76
+            Width = 111
+            Caption = 'Johnson算法'
+            Enabled = False
+            TabOrder = 3
+          end
+          object RadioBtn_way4: TRadioButton
+            Left = 13
+            Height = 27
+            Top = 99
+            Width = 98
+            Caption = 'A-Star算法'
+            Enabled = False
+            TabOrder = 4
+          end
+        end
+      end
+    end
+    object setpoints: TButton
+      Left = 0
+      Height = 25
+      Hint = '只在作者自创的燃线法添加权重功能，别的算法暂没空去做了，以后再理   '
+      Top = 305
+      Width = 169
+      Anchors = [akTop, akLeft, akRight]
+      Caption = '修改各点及设置起点终点'
+      Font.Color = clGreen
+      Font.Height = -12
+      Font.Name = 'Sans'
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 8
+      OnClick = setpointsClick
+    end
+    object refrash: TButton
+      Left = 8
+      Height = 26
+      Hint = '只在作者自创的燃线法添加权重功能，别的算法暂没空去做了，以后再理   '
+      Top = 549
+      Width = 91
+      Caption = '刷新拓扑图'
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 9
+      OnClick = refreshClick
+    end
+    object RadioGroup1: TRadioGroup
+      Left = 7
+      Height = 94
+      Top = 29
+      Width = 163
+      Anchors = [akTop, akLeft, akRight]
+      AutoFill = True
+      Caption = '简化成仅两个项目'
+      ChildSizing.LeftRightSpacing = 6
+      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+      ChildSizing.EnlargeVertical = crsHomogenousChildResize
+      ChildSizing.ShrinkHorizontal = crsScaleChilds
+      ChildSizing.ShrinkVertical = crsScaleChilds
+      ChildSizing.Layout = cclLeftToRightThenTopToBottom
+      ChildSizing.ControlsPerLine = 1
+      ClientHeight = 70
+      ClientWidth = 161
+      TabOrder = 10
+      object RadioButton1: TRadioButton
+        Left = 6
+        Height = 23
+        Top = 0
+        Width = 149
+        AutoSize = False
+        Caption = '载入演示项目'
+        TabOrder = 0
+        OnClick = RadioButton1Click
+      end
+      object RadioButton2: TRadioButton
+        Left = 6
+        Height = 19
+        Top = 23
+        Width = 149
+        Caption = '载入用户项目(仅一个)'
+        Checked = True
+        Font.Height = -11
+        Font.Name = 'Sans'
+        ParentFont = False
+        TabOrder = 1
+        TabStop = True
+        OnClick = RadioButton2Click
+      end
+      object emptyfree: TButton
+        Left = 6
+        Height = 28
+        Top = 42
+        Width = 149
+        Caption = '注意！先点这来清空用户项目'
+        Font.Color = clRed
+        Font.Height = -11
+        Font.Name = 'Sans'
+        ParentFont = False
+        TabOrder = 2
+        OnClick = emptyfreeClick
+      end
+    end
+    object Button11: TButton
+      Left = 104
+      Height = 25
+      Hint = '只在作者自创的燃线法添加权重功能，别的算法暂没空去做了，以后再理   '
+      Top = 549
+      Width = 56
+      Anchors = [akTop, akLeft, akRight]
+      Caption = '退出'
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 11
+      OnClick = Button11Click
+    end
+    object Button3: TButton
+      Left = 104
+      Height = 25
+      Hint = '最快路径（最短路径）与TSP与四色定理染色算法一样，有底图来对比时，定义点坐标肯定方便些乎'
+      Top = 176
+      Width = 63
+      Caption = '选择底图'
+      Font.Height = -11
+      Font.Name = 'Sans'
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 12
+      OnClick = Button3Click
+    end
+    object shiftPoints: TToggleBox
+      Left = 9
+      Height = 29
+      Top = 606
+      Width = 151
+      Anchors = [akTop, akLeft, akRight]
+      Caption = 'shift点(看右键)'
+      TabOrder = 13
+      OnChange = shiftPointsChange
+      OnClick = shiftPointsClick
+      OnMouseUp = shiftPointsMouseUp
+    end
+    object shiftEdges: TToggleBox
+      Left = 9
+      Height = 29
+      Top = 638
+      Width = 151
+      Anchors = [akTop, akLeft, akRight]
+      Caption = 'shift/ctrl点(看右键)'
+      TabOrder = 14
+      OnClick = shiftEdgesClick
+      OnMouseUp = shiftEdgesMouseUp
+    end
+    object CheckBox_showhint: TCheckBox
+      Left = 12
+      Height = 23
+      Top = 154
+      Width = 158
+      Caption = '显示拓扑图中标签和提示'
+      Checked = True
+      Font.Height = -12
+      Font.Name = 'Sans'
+      ParentFont = False
+      State = cbChecked
+      TabOrder = 15
+      OnChange = refreshClick
+    end
+    object Label1: TLabel
+      Left = 12
+      Height = 17
+      Top = 131
+      Width = 88
+      Caption = '设置点直径(像素):'
+      Font.Height = -11
+      Font.Name = 'Sans'
+      ParentFont = False
+    end
+    object Edit1: TEdit
+      Left = 104
+      Height = 34
+      Top = 122
+      Width = 59
+      Anchors = [akTop, akLeft, akRight]
+      Font.Height = -11
+      Font.Name = 'Sans'
+      NumbersOnly = True
+      ParentFont = False
+      TabOrder = 16
+      Text = '30'
+    end
+    object Btn_edges: TButton
+      Left = 0
+      Height = 28
+      Hint = '只在作者自创的燃线法添加权重功能，别的算法暂没空去做了，以后再理   '
+      Top = 330
+      Width = 169
+      Caption = '定义各边关系及边长'
+      Font.Color = clBlue
+      Font.Height = -12
+      Font.Name = 'Sans'
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 3
+      OnClick = Button8Click
+    end
+  end
+  object Button5: TButton
+    Left = 464
+    Height = 25
+    Top = 624
+    Width = 208
+    Caption = '找个TEMP控件输入中文COPY用'
+    TabOrder = 6
+    Visible = False
+    OnClick = Button5Click
+  end
+  object DataSource1: TDataSource
+    DataSet = SQLQuery1
+    Left = 184
+    Top = 56
+  end
+  object SQLQuery1: TSQLQuery
+    FieldDefs = <>
+    Database = SQLConnector1
+    Transaction = SQLTransaction1
+    SQL.Strings = (
+      ''
+      ''
+    )
+    Params = <>
+    Macros = <>
+    Left = 48
+    Top = 200
+  end
+  object SQLTransaction1: TSQLTransaction
+    Active = False
+    Database = SQLConnector1
+    Left = 222
+    Top = 168
+  end
+  object SQLConnector1: TSQLConnector
+    Connected = False
+    LoginPrompt = False
+    DatabaseName = 'FastLine.sqlite3'
+    KeepConnection = True
+    Transaction = SQLTransaction1
+    ConnectorType = 'SQLite3'
+    Left = 394
+    Top = 104
+  end
+  object SQLQuery2: TSQLQuery
+    FieldDefs = <>
+    Database = SQLConnector1
+    Transaction = SQLTransaction1
+    Params = <>
+    Macros = <>
+    Left = 40
+    Top = 344
+  end
+  object SQLQuery3: TSQLQuery
+    FieldDefs = <>
+    Database = SQLConnector1
+    Transaction = SQLTransaction1
+    Params = <>
+    Macros = <>
+    Left = 40
+    Top = 416
+  end
+  object OpenDialog1: TOpenDialog
+    Left = 502
+    Top = 97
+  end
+  object SQLtemp: TSQLQuery
+    FieldDefs = <>
+    Database = SQLConnector1
+    Transaction = SQLTransaction1
+    Params = <>
+    Macros = <>
+    Left = 48
+    Top = 272
+  end
+  object SQLTransaction2: TSQLTransaction
+    Active = False
+    Database = SQLConnector2
+    Left = 232
+    Top = 256
+  end
+  object SQLTransaction3: TSQLTransaction
+    Active = False
+    Database = SQLConnector3
+    Left = 200
+    Top = 336
+  end
+  object SQLConnector2: TSQLConnector
+    Connected = False
+    LoginPrompt = False
+    DatabaseName = 'FastLine.sqlite3'
+    KeepConnection = False
+    Transaction = SQLTransaction2
+    ConnectorType = 'SQLite3'
+    Left = 392
+    Top = 176
+  end
+  object SQLConnector3: TSQLConnector
+    Connected = False
+    LoginPrompt = False
+    DatabaseName = 'FastLine.sqlite3'
+    KeepConnection = False
+    ConnectorType = 'SQLite3'
+    Left = 400
+    Top = 248
+  end
+  object SQLite3Connection1: TSQLite3Connection
+    Connected = False
+    LoginPrompt = False
+    DatabaseName = 'FastLine.sqlite3'
+    KeepConnection = False
+    AlwaysUseBigint = False
+    Left = 216
+    Top = 504
+  end
+  object pMenu: TPopupMenu
+    Left = 372
+    Top = 391
+    object hintPoint: TMenuItem
+      Caption = '提示'
+    end
+    object memoPoint: TMenuItem
+      Caption = '备注'
+    end
+    object updateMemo: TMenuItem
+      Caption = '修改备注'
+      OnClick = updateMemoClick
+    end
+    object delOnePoint: TMenuItem
+      Caption = '删除此质点'
+      OnClick = delOnePointClick
+    end
+  end
+  object lineMenu: TPopupMenu
+    Left = 464
+    Top = 409
+    object Linememo: TMenuItem
+      Caption = '线的备注'
+    end
+    object lineBeginEnd: TMenuItem
+      Caption = 'lineBeginEnd'
+    end
+  end
+end
